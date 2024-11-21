@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corações e Ursos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            height: 100vh;
+        }
+
+        /* Estilo do coração */
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+            transform: rotate(-45deg);
+            animation: floatHeart 2s infinite;
+        }
+
+        /* Animação de flutuar dos corações */
+        @keyframes floatHeart {
+            0% {
+                transform: translate(0, 0) rotate(-45deg);
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) rotate(-45deg);
+            }
+        }
+
+        /* Estilo do urso (imagem ou ícone) */
+        .bear {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/2d/Teddy_Bear_Icon.png');
+            background-size: cover;
+            background-position: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Botão de continuar */
+        .btn-continue {
+            position: absolute;
+            bottom: 50px;
+            padding: 15px 30px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            font-size: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-continue:hover {
+            background-color: #ff1493;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Adicionando o urso -->
+    <div class="bear"></div>
+
+    <!-- Botão para soltar os corações -->
+    <button class="btn-continue" onclick="releaseHearts()">Continuar</button>
+</div>
+
+<script>
+    // Função para soltar corações quando o botão for clicado
+    function releaseHearts() {
+        for (let i = 0; i < 20; i++) {
+            let heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Gerar posições aleatórias para os corações
+            heart.style.setProperty('--x', `${Math.random() * 400 - 200}px`);
+            heart.style.setProperty('--y', `${Math.random() * 400 - 200}px`);
+
+            document.body.appendChild(heart);
+
+            // Remover o coração após a animação
+            setTimeout(() => {
+                heart.remove();
+            }, 2000);
+        }
+    }
+</script>
+
+</body>
+</html>
